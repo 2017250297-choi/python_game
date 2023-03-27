@@ -1,0 +1,4 @@
+class_name,hp,power,speed,mag
+Archer,70,10,3,8
+Babarian,90,12,2,5
+Cleric,80,8,2,12
