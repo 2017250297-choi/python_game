@@ -102,17 +102,21 @@ class WindowManager:
                 movelist[index](targets[index])
                 movelist[(index+1) % 2](targets[(index+1) % 2])
             elif p_s-e_s > 0:
-                p_move(enemy)
-                if (p_s-e_s)**2 <= rd.randint(1, 25):
-                    enemy.attack(player_entity)
-                else:
-                    print(f"{enemy.name}는 움직이지 못했다.")
+                first = p_move
+                second = enemy.attack
+                first_arg = enemy
+                second_arg = player_entity
+
             else:
-                enemy.attack(player_entity)
-                if (e_s-p_s)**2 <= rd.randint(1, 25):
-                    p_move(enemy)
-                else:
-                    print((f"{player_entity.name}는 움직이지 못했다."))
+                first = enemy.attack
+                second = p_move
+                first_arg = player_entity
+                second_arg = enemy
+            first(first_arg)
+            if (p_s-e_s)**2 <= rd.randint(1, 25):
+                second(second_arg)
+            else:
+                print(f"{first_arg.name}는 움직이지 못했다.")
 
             if player_entity.hp == 0:
                 print('You Dead! Game Over.')
@@ -129,8 +133,7 @@ def make_monster():
     csv_file = open('monster_classes.csv', "r", encoding="utf-8")
     csv_data = csv.DictReader(csv_file)
     csv_data = list(csv_data)
-    dice = rd.randint(0, 2000) % len(csv_data)
-    row = csv_data[dice]
+    row = rd.choice(csv_data)
     monster_entity = Monster(row['class_name'], '', int(row['hp']), int(
         row['power']), int(row['speed']), int(row['mag_d']))
     csv_file.close()
