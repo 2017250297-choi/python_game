@@ -2,3 +2,4 @@ class_name,hp,power,speed,mag_d
 Slime,60,6,2,0
 Goblin,50,7,3,2
 LizardMan,50,10,1,5
+Orc,100,12,0,3
