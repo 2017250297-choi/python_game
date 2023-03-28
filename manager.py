@@ -2,7 +2,6 @@ import os
 from time import sleep
 from characters import *
 import csv
-import random
 
 
 class WindowManager:
