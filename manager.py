@@ -2,6 +2,7 @@ import os
 from time import sleep
 from characters import *
 import csv
+import random
 
 
 class WindowManager:
@@ -101,22 +102,23 @@ class WindowManager:
                 index = rd.randint(0, 1)
                 movelist[index](targets[index])
                 movelist[(index+1) % 2](targets[(index+1) % 2])
-            elif p_s-e_s > 0:
-                first = p_move
-                second = enemy.attack
-                first_arg = enemy
-                second_arg = player_entity
+            else:
+                if p_s-e_s > 0:
+                    first = p_move
+                    second = enemy.attack
+                    first_arg = enemy
+                    second_arg = player_entity
 
-            else:
-                first = enemy.attack
-                second = p_move
-                first_arg = player_entity
-                second_arg = enemy
-            first(first_arg)
-            if (p_s-e_s)**2 <= rd.randint(1, 25):
-                second(second_arg)
-            else:
-                print(f"{first_arg.name}는 움직이지 못했다.")
+                else:
+                    first = enemy.attack
+                    second = p_move
+                    first_arg = player_entity
+                    second_arg = enemy
+                first(first_arg)
+                if (p_s-e_s)**2 <= rd.randint(1, 25):
+                    second(second_arg)
+                else:
+                    print(f"{first_arg.name}는 움직이지 못했다.")
 
             if player_entity.hp == 0:
                 print('You Dead! Game Over.')
